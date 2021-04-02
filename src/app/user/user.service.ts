@@ -14,11 +14,14 @@ export class UserService {
     private http:HttpClient
   ) { }
 
+  login(username: string, password: string): Observable<User> {
+    return this.http.get(`${this.baseurl}?${username}?${password}`) as Observable<User>;
+  }
   list(): Observable<User[]> {
     return this.http.get(`${this.baseurl}`) as Observable<User[]>;
   }
   get(id: number): Observable<User> {
-    return this.http.get(`${this.baseurl}/${id}`) as Observable<User>;
+    return this.http.get(`${this.baseurl}${id}`) as Observable<User>;
   }
   create(user: User): Observable<User> {
     return this.http.post(`${this.baseurl}`, user) as Observable<User>;
@@ -27,6 +30,6 @@ export class UserService {
     return this.http.put(`${this.baseurl}`, user) as Observable<User>;
   }
   remove(user: User): Observable<User> {
-    return this.http.delete(`${this.baseurl}/${user.id}`) as Observable<User>;
+    return this.http.delete(`${this.baseurl}${user.id}`) as Observable<User>;
   }
 }
